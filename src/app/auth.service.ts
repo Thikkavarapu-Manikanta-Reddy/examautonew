@@ -30,6 +30,21 @@ sendmail(email123:string) {
         const quesid123 = {"quesid": ques,"emailid": ema,"text123":text};
         return  this.http.post('https://examautomata.herokuapp.com/quespass', quesid123);
       }
+      getDate(): Observable<any>
+      {
+        const quesid123 = {"quesid": 0};
+      return this.http.post('http://localhost:3000/date',quesid123);
+      //return this.http.post('https://examautomata.herokuapp.com/date',quesid123);
+      }
+      getDate1(month:string,day:number,year:number,hr:number,
+        min:number,sec:number): Observable<any>
+      {
+      const date1 = {"month": month,"day": day,"year":year,
+      "hr": hr,"min": min,"sec":sec};
+      return this.http.post('http://localhost:3000/date1',date1);
+      //return this.http.post('https://examautomata.herokuapp.com/date1',date1);
+      }
+
       getemail()
       {
       		return localStorage.getItem('check');
