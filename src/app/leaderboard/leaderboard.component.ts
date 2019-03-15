@@ -24,11 +24,8 @@ king:boolean = false;
 QID:string;
 name:string;
 score:number;
-rank:number[]=[];
-email:string[]=[];
 quest;
 exists:string;
-i:number=0;
   constructor(private router: Router,private formBuilder: FormBuilder,private afs: AngularFirestore,private auth:AuthService) { }
 
   ngOnInit() {
@@ -39,51 +36,9 @@ this.QID=localStorage.getItem("leadpap");
   	  if(data123!='')
       {
       	this.zip = false;
-  		this.zip1 = false;
-    			/*console.log(data123[hello.i].user);
-    	db.collection('UsersResults').doc(localStorage.getItem("epid"))
-.collection("Results")
-.where('user', '==', data123[hello.i].user).get()
-        .then((querySnapshot)=> {
-   if (querySnapshot.size > 0) {
-         querySnapshot.forEach((doc)=> {
-		doc.ref.update({rank:hello.i+1});
-		hello.i++;
-		console.log(hello.i,data123);
-    });
-      } 
-    else {
-       
+  		  this.zip1 = false;
+        this.quest = data123;
       }
-         });*/
-        	        this.quest = data123;
-                  //this.email[0]=this.quest[0].user;
-                  //console.log(this.quest[0],this.email[0]);
-  //console.log(hello.LoginForm.value.password);
-  for(let i=0;i<this.quest.length;i++)
-  {
-    db.collection('UserDetails')
-    .where("name", "==", this.quest[i].user)
-  .get()
-  .then(function(querySnapshot) {
-   if (querySnapshot.size > 0) {
-  querySnapshot.forEach((doc)=> {
-     hello.email[i]=doc.data().email;
-  });
-      } 
-    else {
-
-      }
-    })
-    .catch(function(error) {
-        //console.log("Error getting documents: ", error);
-    });
-    //this.rank[i]=i+1;
-   // console.log(this.rank[0],this.quest[0].user);
-	}
-
-}
-
 	else
 	{
 		this.zip1 = true;
@@ -125,7 +80,7 @@ onKey(event: any)
 
   firequery(start, end): Observable<any>
 {
-    return this.afs.collection('UsersResults').doc(localStorage.getItem("epid"))
+    return this.afs.collection('UsersResults').doc(this.QID)
        .collection('Results', ref => ref.orderBy('user').startAt(start).endAt(end)).valueChanges();
 }
 

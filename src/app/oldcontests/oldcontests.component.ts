@@ -40,6 +40,7 @@ middle:string = 'Nothing!!';
 spinner:boolean = true;
 spinner1:boolean = true;
 PassForm: FormGroup;
+delete:string;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private afs: AngularFirestore,private auth:AuthService) { }
 
@@ -167,7 +168,6 @@ const db = firebase.firestore();
     doc.ref.delete();
   });
 });
-
 db.collection('OldCommonQuestionPapers')
       .where('pass', '==', this.PassForm.value.password)
      .get()
@@ -200,12 +200,20 @@ login()
 this.router.navigate(['login']);
 }
 
-deletecont(pid1:string)
+deletecont1(pid1:string)
 {
+  this.delete = pid1;
+  $('#myModal2').modal('show');
+ // console.log(this.delete);
+}
+
+deletecont()
+{
+  $('#myModal2').modal('hide');
   const db = firebase.firestore();
   var hello = this;
 db.collection('OldCommonQuestionPapers')
-      .where('pid', '==', pid1)
+      .where('pid', '==', this.delete)
       .where('user','==',this.auth.getuser()).get()
         .then((querySnapshot)=> {
    if (querySnapshot.size > 0) {

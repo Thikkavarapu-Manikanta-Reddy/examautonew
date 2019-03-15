@@ -2,11 +2,11 @@
 {
 h2#zoom
 {
-  font-size:80%;
+  font-size:40%;
 }
 h2#zoom1
 {
-  font-size:45%;
+  font-size:37%;
 }
 }
 @media only screen and (min-width: 551px) and (max-width: 768px) 
@@ -34,6 +34,17 @@ h2#zoom1
 #sin
 {
 	text-align: center;
+}
+@media only screen and (min-width: 1201px) 
+{
+h2#zoom
+{
+  font-size:120%;
+}
+h2#zoom1
+{
+  font-size:120%;
+}
 }
 @media only screen and (min-width: 550px) 
 {

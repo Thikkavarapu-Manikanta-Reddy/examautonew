@@ -23,6 +23,8 @@
     <h1 id ="sin" id="zoom" style="color: #3CB371;">DemoQuestionPaperId:<span style="color:black">{{paperID}}</span></h1>
 <h1 id="sin" id="zoom" *ngIf="!bool">{{days}}days{{hours}}hrs{{minutes}}mins{{seconds}}secs
 </h1>
+<h1 id ="sin"><a  id = "fur" id ="fasak" (click)="navigate()" class="button button1">Navigate</a></h1>
+<h1 *ngIf="bool">{{mess}}</h1>
 <h1 *ngIf="bool">{{mess}}</h1>
 <!--<ng-container *ngFor="let quest of best">-->
   	    <form novalidate [formGroup]="OptionForm" (ngSubmit)="savenext(quest.qid)">
@@ -30,7 +32,7 @@
 	<h2 id="zoom">
 		<span id = "ping">Question</span>
 		<span id = "ging">Id :</span>
-		<span id = "ging">{{quest.qid}}</span>
+		<span id = "ging">{{temp+1}}</span>
 	</h2>
 	<h2 id="zoom">
 		<span id = "ping">{{quest.ques}}
@@ -48,10 +50,10 @@
   <h4 id="zoom">
     <input type="radio" class="rButton" [value]="quest.op4" formControlName="opt" ><span class="convText" id = "ging">{{quest.op4}}</span>
 </h4>
-<h1 id ="sin"><a  id = "fur" id ="fasak" (click)="deselect(quest.qid)" class="button button1">DeselectOptions</a></h1>
+<h1 id ="sin"><a  id = "fur" class="kong" id ="fasak" (click)="deselect(quest.qid)" class="button button1">DeselectOptions</a></h1>
   	</div>
   		<br>
-<h1 id ="sin"><a *ngIf="horror" id = "fur" id ="fasak1" (click)="previous()" class="button button1">GoBack</a>&nbsp;
+<h1 id ="sin"><a *ngIf="horror" id = "fur" id ="fasak1" (click)="previous(quest.qid)" class="button button1">SaveAndGoBack</a>&nbsp;
 <button *ngIf="!horror1" type="submit" id ="fasak1" class="button button1">Saveandnext</button>
 <button *ngIf="horror1" type="submit" id ="fasak1" class="button button1">Submit</button></h1><br>
 </form>
@@ -61,5 +63,102 @@
 </div>
 </div>
 </div>
-
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title" id="sin"><div class="sk-cube-grid">
+  <div class="sk-cube sk-cube1"></div>
+  <div class="sk-cube sk-cube2"></div>
+  <div class="sk-cube sk-cube3"></div>
+  <div class="sk-cube sk-cube4"></div>
+  <div class="sk-cube sk-cube5"></div>
+  <div class="sk-cube sk-cube6"></div>
+  <div class="sk-cube sk-cube7"></div>
+  <div class="sk-cube sk-cube8"></div>
+  <div class="sk-cube sk-cube9"></div>
+</div><span style="color:#3CB371;">Question</span>Id's</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+<div class="container-fluid" >
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="hello1 d-flex justify-content-center">
+    <ng-container *ngFor="let queq of lost;let i = index">
+    <!--<div class="heck3">-->
+  <h2 id="zoom">
+    <!--<img id="zoom" src="assets/1156977.svg" alt="Cinque Terre" width="50" height="50">
+    <span id = "ping">Id:</span>
+    <span id = "ging">{{i+1}}</span>&nbsp;-->
+    <span><a style="padding:35px;width:100px;margin-right:14px;" id = "fur" id ="fasak" (click)="quesnavigate(queq.qid)" class="button button1" *ngIf="!attempt[i]">{{i+1}}</a></span>
+    <span><a style="padding:35px;width:100px;margin-right:14px;" id = "fur" id ="fasak" (click)="quesnavigate(queq.qid)" class="button button2" *ngIf="attempt[i]">{{i+1}}</a></span>
+  </h2>
+    <!--</div>-->
+  </ng-container>
+        </div>
+    </div>
+</div>
+</div>
+      <br>
+    </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModal4">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"><div class="sk-cube-grid">
+  <div class="sk-cube sk-cube1"></div>
+  <div class="sk-cube sk-cube2"></div>
+  <div class="sk-cube sk-cube3"></div>
+  <div class="sk-cube sk-cube4"></div>
+  <div class="sk-cube sk-cube5"></div>
+  <div class="sk-cube sk-cube6"></div>
+  <div class="sk-cube sk-cube7"></div>
+  <div class="sk-cube sk-cube8"></div>
+  <div class="sk-cube sk-cube9"></div>
+</div><span style="color:#3CB371;">Exam</span>Automata</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div *ngIf="!cuber">
+          <h2 id="spa"><i id="wro" class="fa fa-exclamation-circle" style="font-size:36px"></i>Are you sure you want to submit the answers?</h2>
+            <!-- <h2 id="spa"><span style="color:#3CB371;">Attempted:</span> {{counto}}/{{count}}</h2> -->
+            <br><div id="spa"><a id = "fur" id ="fasak" (click)="savenext1()" data-dismiss="modal" class="button button1"><h3>Proceed</h3></a></div>
+          </div>
+        <h3 *ngIf="cuber" id ="sin" style="color: #3CB371;">Load<span style="color: black;">ing......</span></h3>
+          <div *ngIf="cuber" class="spinner1">
+  <div class="rect1"></div>
+  <div class="rect2"></div>
+  <div class="rect3"></div>
+  <div class="rect4"></div>
+  <div class="rect5"></div>
+</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 <app-footer></app-footer>

@@ -34,7 +34,8 @@ yoyo1:boolean = false;
 yoyo2:boolean = false;
 yoyo3:boolean = false;
 yoyo4:boolean = false;
-temp:number;
+cuber:boolean= false;
+temp:number=0;
 num1:number;
 quest:object={};
 questq;
@@ -47,6 +48,9 @@ zip:boolean = false;
 zip1:boolean = false;
 exists:string;
 spinner:boolean = true;
+attempt=[0];
+queso:string;
+counto:number=0;
   constructor(private router: Router,private formBuilder: FormBuilder,private afs: AngularFirestore,private auth:AuthService) { }
 
   ngOnInit() {
@@ -138,6 +142,12 @@ if(hello.papid == false)
         }
           
             //console.log(hr,hello.ptime,day,month);
+         localStorage.setItem("Uday"+localStorage.getItem("random")
+  +'QP59212',day);
+         localStorage.setItem("Umonth"+localStorage.getItem("random")
+  +'QP59212',month);
+         localStorage.setItem("Uyear"+localStorage.getItem("random")
+  +'QP59212',year);
       localStorage.setItem("hrs"+localStorage.getItem("random")
   +'QP59212',hr);
       localStorage.setItem("mins"+localStorage.getItem("random")
@@ -154,7 +164,10 @@ else{
 
 
 // Set the date we're counting down to
-var countDownDate = new Date(month+day+","+year+" "+parseInt(localStorage.getItem("hrs"+localStorage.getItem("random")
+var countDownDate = new Date(localStorage.getItem("Umonth"+localStorage.getItem("random")
+  +'QP59212')+parseInt(localStorage.getItem("Uday"+localStorage.getItem("random")
+  +'QP59212'))+","+parseInt(localStorage.getItem("Uyear"+localStorage.getItem("random")
+  +'QP59212'))+" "+parseInt(localStorage.getItem("hrs"+localStorage.getItem("random")
   +'QP59212'))+":"+parseInt(localStorage.getItem("mins"+localStorage.getItem("random")
   +'QP59212'))+":"+parseInt(localStorage.getItem("secs"+localStorage.getItem("random")
   +'QP59212'))).getTime();
@@ -202,6 +215,7 @@ hello.num1 = window.setInterval(()=> {
 this.createform();
 this.paperber = JSON.parse(localStorage.getItem('paperber'+localStorage.getItem("epid1")+localStorage.getItem("user321")) || 'false');
 this.numblimit = JSON.parse(localStorage.getItem('numblimit'+localStorage.getItem("epid1")+localStorage.getItem("user321")) || '0');
+hello.temp = parseInt(hello.numblimit);
 if(this.paperber == false)
 {
   //console.log(this.paperber);
@@ -212,6 +226,29 @@ if(this.paperber == false)
         localStorage.setItem("Data",JSON.stringify(data123));
         this.lost=JSON.parse(localStorage.getItem("Data"));
         this.optchecker1(this.lost[parseInt(this.numblimit)].qid);
+        db.collection('DemoAnswers').doc(localStorage.getItem("random")).collection(localStorage.getItem("epid1"))
+      .where('attempt', '==',1).get()
+      .then((querySnapshot)=> {
+   if (querySnapshot.size > 0) {
+     querySnapshot.forEach((doc)=> {
+        for(var e=0;e<hello.lost.length;e++)
+       {
+       if(doc.data().qid==hello.lost[e].qid)
+       {
+         hello.attempt[e]=1;
+         console.log("hurray",e);
+         break;
+       }
+       }
+           });
+      } 
+    else {
+
+   }
+    })
+    .catch(function(error) {
+      //  console.log("Error getting documents: ", error);
+    });
         this.count = data123.length;
         this.quest = this.lost[parseInt(this.numblimit)];
                this.spinner = false;
@@ -240,6 +277,29 @@ else
     this.lost=JSON.parse(localStorage.getItem("Data"));
     this.count = this.lost.length;
     this.optchecker1(this.lost[parseInt(this.numblimit)].qid);
+          db.collection('DemoAnswers').doc(localStorage.getItem("random")).collection(localStorage.getItem("epid1"))
+      .where('attempt', '==',1).get()
+      .then((querySnapshot)=> {
+   if (querySnapshot.size > 0) {
+     querySnapshot.forEach((doc)=> {
+        for(var e=0;e<hello.lost.length;e++)
+       {
+       if(doc.data().qid==hello.lost[e].qid)
+       {
+         hello.attempt[e]=1;
+         //console.log("hurray",e);
+         break;
+       }
+       }
+           });
+      } 
+    else {
+
+   }
+    })
+    .catch(function(error) {
+      //  console.log("Error getting documents: ", error);
+    });
     this.quest = this.lost[parseInt(this.numblimit)];
             this.spinner = false;
             if(parseInt(this.numblimit)>0)
@@ -293,7 +353,7 @@ var hello = this;
 
 }
 
-optchecker(quesid:string,answer:string)
+optchecker(quesid:string,answer:string,attemptid:number)
 {
 const db = firebase.firestore();
 var hello = this;
@@ -340,8 +400,10 @@ db.collection('UserQuestionPaper')
       qid:quesid,
       ans:answer,
       corans:oa,
-      corr:oc
+      corr:oc,
+      attempt:1
     }).then((docRef)=> {
+      hello.attempt[attemptid]=1;
         //console.log("Document written with ID: ", docRef.id);
     })
     .catch(function(error) {
@@ -355,6 +417,7 @@ db.collection('UserQuestionPaper')
       .then((querySnapshot)=> {
     querySnapshot.forEach((doc)=> {
     doc.ref.update({ans:answer,corr:oc});
+    hello.attempt[attemptid]=1;
   //console.log("Document successfully updated!");
   });
 });
@@ -366,20 +429,38 @@ db.collection('UserQuestionPaper')
     });
 
 }
-
+savenext1()
+{
+  $('#myModal4').modal('hide');
+ this.spinner = true;
+        if(this.OptionForm.value.opt != '')
+        this.optchecker(this.queso,this.OptionForm.value.opt,parseInt(this.numblimit));
+        clearInterval(this.num1);
+        setTimeout(()=>{
+        this.resultcal();
+        }, 1000) 
+}
 savenext(quesid:string)
 {
 
   const db = firebase.firestore();
       if(parseInt(this.numblimit)+1 == this.count)
           {
-              this.spinner = true;
-        if(this.OptionForm.value.opt != '')
-        this.optchecker(quesid,this.OptionForm.value.opt);
-        clearInterval(this.num1);
-        setTimeout(()=>{
-        this.resultcal();
-        }, 1000) 
+            this.cuber=true;
+          this.queso=quesid;
+          $('#myModal4').modal('show');
+          setTimeout(()=>{
+            this.cuber=false;
+             }, 1500);
+          var count1=0;
+          for(var i=0;i<this.lost.length;i++)
+          {
+            if(this.attempt[i]==1)
+            {
+              count1++;
+            }
+          }
+          this.counto = count1;
         }
       else
          {
@@ -387,6 +468,8 @@ savenext(quesid:string)
         setTimeout(()=>{
          this.spinner = false;
       const db = firebase.firestore();
+    if(this.OptionForm.value.opt != '')
+    this.optchecker(quesid,this.OptionForm.value.opt,parseInt(this.numblimit));
   localStorage.setItem('paperber'+localStorage.getItem("epid1")+localStorage.getItem("user321"),'true');
   this.paperber = true;
   this.temp = parseInt(this.numblimit) + 1;
@@ -401,8 +484,6 @@ savenext(quesid:string)
         else
           this.horror1 = false;
         this.lost=JSON.parse(localStorage.getItem("Data"));
-        if(this.OptionForm.value.opt != '')
-    this.optchecker(quesid,this.OptionForm.value.opt);
     this.optchecker1(this.lost[this.temp].qid);
       this.quest = this.lost[this.temp]; 
   //console.log(this.paperber,this.numblimit);
@@ -411,11 +492,13 @@ savenext(quesid:string)
 }
 
 }
-previous()
+previous(quesid:string)
 {
         this.spinner = true;
         setTimeout(()=>{
          this.spinner = false;
+  if(this.OptionForm.value.opt != '')       
+  this.optchecker(quesid,this.OptionForm.value.opt,parseInt(this.numblimit));
   this.temp = parseInt(this.numblimit) -1;
         this.numblimit = this.temp.toString();
    localStorage.setItem('numblimit'+localStorage.getItem("epid1")+localStorage.getItem("user321"),this.numblimit);
@@ -435,14 +518,57 @@ previous()
  }, 1500);
 }
 
+navigate()
+{
+  $('#myModal').modal('show');
+}
+
+quesnavigate(quesid:string)
+{
+  $('#myModal').modal('hide');
+  //console.log(this.lost[0].qid);
+  this.spinner = true;
+  for(var i=0;i<this.lost.length;i++)
+  {
+    if(quesid == this.lost[i].qid)
+    {
+setTimeout(()=>{
+         this.spinner = false;
+      const db = firebase.firestore();
+  localStorage.setItem('paperber'+localStorage.getItem("epid1")+localStorage.getItem("user321"),'true');
+  this.paperber = true;
+  this.temp = i;
+        this.numblimit = this.temp.toString();
+   localStorage.setItem('numblimit'+localStorage.getItem("epid1")+localStorage.getItem("user321"),this.numblimit);
+                  if(parseInt(this.numblimit)>0)
+          this.horror = true;
+        else
+          this.horror = false;
+        if(parseInt(this.numblimit)+1 == this.count)
+          this.horror1 = true;
+        else
+          this.horror1 = false;
+        this.lost=JSON.parse(localStorage.getItem("Data"));
+    this.optchecker1(this.lost[this.temp].qid);
+      this.quest = this.lost[this.temp]; 
+  //console.log(this.numblimit);
+}, 1500);
+      //console.log(this.lost[i].qid,i);
+      break;
+    }
+  }
+}
+
 deselect(quesid:string)
 {
+  var hello = this;
   const db = firebase.firestore();
         db.collection('DemoAnswers').doc(localStorage.getItem("random")).collection(localStorage.getItem("epid1"))
       .where('qid','==',quesid).get()
       .then((querySnapshot)=> {
     querySnapshot.forEach(function(doc) {
     doc.ref.delete();
+    hello.attempt[parseInt(hello.numblimit)]=0;
   });
 });
     this.OptionForm.setValue({
@@ -458,10 +584,16 @@ resultcal()
 
 var sco=0,totsco=0;
 
-localStorage.removeItem('paperber1'+localStorage.getItem("epid2")+localStorage.getItem("user321"));
-  localStorage.removeItem('numblimit1'+localStorage.getItem("epid")+localStorage.getItem("user321"));
+localStorage.removeItem('paperber1'+localStorage.getItem("epid1")+localStorage.getItem("user321"));
+  localStorage.removeItem('numblimit1'+localStorage.getItem("epid1")+localStorage.getItem("user321"));
 localStorage.removeItem('demoexamin'+localStorage.getItem("epid1"));
  localStorage.removeItem('case'+localStorage.getItem("random")
+  +localStorage.getItem("epid1"));
+ localStorage.removeItem('Uday'+localStorage.getItem("random")
+  +localStorage.getItem("epid1"));
+ localStorage.removeItem('Umonth'+localStorage.getItem("random")
+  +localStorage.getItem("epid1"));
+ localStorage.removeItem('Uyear'+localStorage.getItem("random")
   +localStorage.getItem("epid1"));
 localStorage.removeItem('hrs'+localStorage.getItem("random")
   +localStorage.getItem("epid1"));

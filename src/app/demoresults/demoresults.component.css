@@ -162,6 +162,10 @@ h4#zoom
 {
   font-size:90%;
 }
+h2#zoom
+{
+  text-align: center;
+}
 }
 @media only screen and (min-width: 551px) and (max-width: 730px) 
 {
@@ -182,6 +186,10 @@ h1#zoom1
 {
   font-size:120%;
 }
+h2#zoom
+{
+  text-align: center;
+}
 }
 @media only screen and (min-width: 730px) and (max-width: 900px) 
 {
@@ -199,6 +207,10 @@ font-size:280%;
 h1#zoom
 {
   font-size:150%;
+  text-align: center;
+}
+h2#zoom
+{
   text-align: center;
 }
 }
@@ -220,6 +232,10 @@ h1#zoom{
 font-size:180%;
 text-align: center;
 }
+h2#zoom
+{
+  text-align: center;
+}
 }
 #sin
 {
@@ -237,6 +253,10 @@ height:25%;
   }
 h1#zoom1{
 font-size:350%;
+}
+h2#zoom
+{
+  text-align: center;
 }
 }
 div.heck
@@ -296,6 +316,15 @@ a#fur:hover
     color:white;
     background-color: black; 
 }
+.button.button2 {
+    background-color: #3CB371; 
+    color: white; 
+    border: 2px solid #3CB371;
+}
+.button.button2:hover {
+    color:#3CB371;
+    background-color: white; 
+}
 #fasak
 {
     font-size: 25px;
@@ -349,4 +378,13 @@ a#fur:hover
 .convText {
 
     vertical-align: middle;
+}
+div.hello {
+  height: 300px;
+  overflow: auto;
+}
+div.hello1 {
+  height: 335px;
+  overflow: auto;
+  flex-wrap: wrap;
 }

@@ -28,6 +28,7 @@ createform()
 {
 this.SignupForm = this.formBuilder.group({
      name: ['', [Validators.required, Validators.pattern] ],
+     number: ['', [Validators.required, Validators.pattern] ],
      password: ['', [Validators.required, Validators.pattern] ],
      cpassword: ['', [Validators.required, Validators.pattern] ]
     });
@@ -46,6 +47,7 @@ const db = firebase.firestore();
  			$('#myModal3').modal('show');
  			hello.SignupForm.reset({
       			name: '',
+            number:'',
       			password: '',
       			cpassword: ''
     		});
@@ -64,10 +66,12 @@ const db = firebase.firestore();
     hello.afs.collection('UserDetails').doc(hello.emailid).set({
       name:hello.SignupForm.value.name,
       email: hello.emailid,
-      secretkey:hello.SignupForm.value.password
+      secretkey:hello.SignupForm.value.password,
+      number:hello.SignupForm.value.number
     });
         hello.SignupForm.reset({
             name: '',
+            number:'',
             password: '',
             cpassword: ''
         });

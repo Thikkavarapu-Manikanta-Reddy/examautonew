@@ -44,7 +44,7 @@ onSubmit()
   querySnapshot.forEach((doc)=> {
  		//console.log(querySnapshot.docs[0].data());
  		hello.auth.setloggedin(true);
- 		hello.auth.setloggeduser(doc.data().name,hello.LoginForm.value.email);
+ 		hello.auth.setloggeduser(doc.data().name,hello.LoginForm.value.email,doc.data().number);
 		hello.router.navigate(['automata']);
   });
   		} 

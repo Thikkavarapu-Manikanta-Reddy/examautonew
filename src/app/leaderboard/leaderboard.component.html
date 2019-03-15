@@ -24,13 +24,15 @@
         <th><h2 id="zoom">Name</h2></th>
         <th><h2 id="zoom">Score</h2></th>
         <th><h2 id="zoom">Email</h2></th>
+        <th><h2 id="zoom">ContactNo</h2></th>
       </tr>
     </thead>
     <tbody  id='myTable'>
   <tr *ngFor="let ques of quest; let i = index">
     <td><h2 id="zoom">{{ques.user}}</h2></td>
     <td><h2 id="zoom">{{ques.score}}</h2></td>
-    <td><h2 id="zoom1">{{email[i]}}</h2></td>  
+    <td><h2 id="zoom1">{{ques.email}}</h2></td>
+    <td><h2 id="zoom1">{{ques.number}}</h2></td>   
     </tr>
     </tbody>
     </table>

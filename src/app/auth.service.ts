@@ -16,6 +16,7 @@ demoexaminstatus = JSON.parse(localStorage.getItem('demoexamin'+localStorage.get
 demoresultstatus = JSON.parse(localStorage.getItem('demoresult'+localStorage.getItem("random")) || 'false');
 oldresultstatus = JSON.parse(localStorage.getItem('oldresult'+localStorage.getItem("epid2")) || 'false');
 resultstatus = JSON.parse(localStorage.getItem('result'+localStorage.getItem("epid")) || 'false');
+ data;
   constructor(private http: HttpClient,private afs: AngularFirestore) { }
 
 sendmail(email123:string) {
@@ -28,30 +29,37 @@ sendmail(email123:string) {
       {
         var ema = localStorage.getItem('loggeduser123');
         const quesid123 = {"quesid": ques,"emailid": ema,"text123":text};
-        return  this.http.post('https://examautomata.herokuapp.com/quespass', quesid123);
+        return this.http.post('https://examautomata.herokuapp.com/quespass', quesid123);
       }
       getDate(): Observable<any>
       {
         const quesid123 = {"quesid": 0};
-      return this.http.post('http://localhost:3000/date',quesid123);
-      //return this.http.post('https://examautomata.herokuapp.com/date',quesid123);
+      //return this.http.post('http://localhost:3000/date',quesid123);
+      return this.http.post('https://examautomata.herokuapp.com/date',quesid123);
       }
       getDate1(month:string,day:number,year:number,hr:number,
         min:number,sec:number): Observable<any>
       {
       const date1 = {"month": month,"day": day,"year":year,
       "hr": hr,"min": min,"sec":sec};
-      return this.http.post('http://localhost:3000/date1',date1);
-      //return this.http.post('https://examautomata.herokuapp.com/date1',date1);
+      //return this.http.post('http://localhost:3000/date1',date1);
+      return this.http.post('https://examautomata.herokuapp.com/date1',date1);
       }
-
       getemail()
       {
       		return localStorage.getItem('check');
       }
+      getmail()
+      {
+          return localStorage.getItem('loggeduser123');
+      }
       getuser()
       {
       	return localStorage.getItem('loggeduser');
+      }
+      getnumber()
+      {
+        return localStorage.getItem('loggednumber');
       }
       issignedup()
       {
@@ -126,10 +134,11 @@ sendmail(email123:string) {
       {
       return JSON.parse(localStorage.getItem('result'+localStorage.getItem("epid")) || 'false');
       }
-      setloggeduser(data:string,email123:string)
+      setloggeduser(data:string,email123:string,num123:number)
       {
         localStorage.setItem('loggeduser123',email123);
       	localStorage.setItem('loggeduser',data);
+        localStorage.setItem('loggednumber',num123.toString());
       } 
      getques(quesno:string): Observable<any>
      {
@@ -157,7 +166,7 @@ sendmail(email123:string) {
      }
      getpap(papid:string,puser:string): Observable<any>
      {
-       return this.afs.collection('UserQuestionPaper').doc(puser).collection(papid).valueChanges();
+       return this.afs.collection('UserQuestionPaper').doc(puser).collection(papid,ref => ref.orderBy('qid')).valueChanges();
      }
      getexamers(papid:string): Observable<any>
      {
@@ -168,5 +177,4 @@ sendmail(email123:string) {
      {
        return this.afs.collection('UserDetails', ref => ref.where('name', '==', this.getuser())).valueChanges();
      }
-
 }

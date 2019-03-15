@@ -123,6 +123,14 @@ display:none;
 }
 @media only screen and (max-width: 500px) 
 {
+  input#pink
+  {
+  font-size:36%;
+  }
+  button#fasak6
+  {
+font-size:20%;
+  }
     a#fasak5
   {
     font-size:70%;
@@ -157,6 +165,14 @@ h1#zoom
 }
 @media only screen and (min-width: 501px) and (max-width: 767px)
 {
+  input#pink
+  {
+  font-size:40%;
+  }
+  button#fasak6
+  {
+font-size:40%;
+  }
 #shake
 {
   font-size:45%;
@@ -166,7 +182,7 @@ font-size:145%;
   }
     a#fasak3
   {
-font-size:30%;
+font-size:27%;
   }
 h2#zoom
 {
@@ -179,6 +195,14 @@ h1#zoom
 }
 @media only screen and (min-width: 768px) and (max-width: 991px)
 {
+    input#pink
+  {
+  font-size:40%;
+  }
+  button#fasak6
+  {
+font-size:40%;
+  }
 #shake
 {
   font-size:50%;
@@ -201,6 +225,14 @@ h1#zoom
 }
 @media only screen and (min-width: 992px) and (max-width: 1020px)
 {
+    input#pink
+  {
+  font-size:70%;
+  }
+  button#fasak6
+  {
+font-size:70%;
+  }
       h2#zoom{
 font-size:145%;
   }
@@ -218,7 +250,7 @@ h1#zoom
   text-align: center;
 }
 }
-@media only screen and (min-width: 992px) 
+@media only screen and (min-width: 1021px) 
 {
 #shake
 {
@@ -291,6 +323,11 @@ a#fur:hover
     color:white;
     background-color: black; 
 }
+input
+{
+  border-radius:6px;
+  padding:0.5%;
+}
 #fasak
 {
     font-size: 25px;
@@ -320,6 +357,12 @@ a#fur:hover
     font-size: 90%;
     font-weight: 500;
     padding:1%;
+}
+#fasak6
+{
+    font-size: 25px;
+    font-weight: 600;
+    padding:8px
 }
    i#wro
   {
